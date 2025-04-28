@@ -7,5 +7,10 @@
 public class InputValidator 
 {
     
+    public static boolean validateNameField(String name)
+    {
+        // check if name is not empty
+        return name != null && !name.isEmpty();
+    }
 
 }
