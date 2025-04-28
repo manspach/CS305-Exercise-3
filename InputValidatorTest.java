@@ -19,7 +19,7 @@ public class InputValidatorTest
     public void testNameFieldIsNotEmpty() 
     {
         assertTrue(InputValidator.validateNameField("Maddie")); // non-empty string should return valid
-        assertFalse (InputValidator.validateNameField("")); // empty string should be invalid
+        assertFalse(InputValidator.validateNameField("")); // empty string should be invalid
     }
 
     @Test
