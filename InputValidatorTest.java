@@ -6,20 +6,28 @@
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class InputValidatorTest 
+public class InputValidatorTest
 {
     
     /*
-     * Example test method for a possible Name field validator method in your 
+     * Example test method for a possible Name field validator method in your
      * InputValidator class.
-     * For more information about assertion tests check: 
+     * For more information about assertion tests check:
      * https://www.tutorialspoint.com/junit/junit_using_assertion.htm
      */
     @Test
     public void testNameFieldIsNotEmpty() 
     {
         assertTrue(InputValidator.validateNameField("Maddie")); // non-empty string should return valid
-        assertFalse (InputValidator.validateNameField("")); // empty string should be invalid
+        assertFalse(InputValidator.validateNameField("")); // empty string should be invalid
+    }
+
+    @Test
+    public void testNameFieldLength()
+    {
+        assertTrue(InputValidator.validateNameField("Madison")); // name longer than 2 character should return valid
+        assertFalse(InputValidator.validateNameField("M")); // name less than two characters should be invalid
+        assertFalse(InputValidator.validateNameField("")); // empty name should be invalid
     }
     
     // CREATE MORE TESTS HERE
