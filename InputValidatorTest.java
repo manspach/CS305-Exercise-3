@@ -42,6 +42,22 @@ public class InputValidatorTest
         // assertTrue(InputValidator.validateNameField("A")); // name less than two characters should return false (test should pass)
         // assertTrue(InputValidator.validateNameField("")); // empty name should return false (test should pass)
     }
+
+    @Test
+    public void testNameFieldCharacters()
+    {
+        // passing tests
+        assertTrue(InputValidator.validateNameField("Ferrari")); // name with capital letter should return true
+        assertTrue(InputValidator.validateNameField("haas")); // name with no capital letters should return true
+        assertTrue(InputValidator.validateNameField("McLaren")); // name with multiple capital letters should return true
+        assertTrue(InputValidator.validateNameField("Zoltán")); // name with diacritic mark
+        assertTrue(InputValidator.validateNameField("Lando Norris")); // name with letters and a space should return true
+        assertTrue(InputValidator.validateNameField("Sergio Pérez")); // name with letters, a space, and diacritic should return true
+        assertTrue(InputValidator.validateNameField("Charles Marc Hervé Perceval Leclerc")); // name with letters, multiple spaces, and diacritic marks should return true
+        assertFalse(InputValidator.validateNameField("Alpine!")); // name with punctuation should return false
+        assertFalse(InputValidator.validateNameField("Lewis_Hamilton")); // name with special character should return false
+        assertFalse(InputValidator.validateNameField("Max33")); // name with numbers should return false
+    }
     
     // CREATE MORE TESTS HERE
     
