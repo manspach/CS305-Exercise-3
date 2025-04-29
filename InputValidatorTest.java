@@ -22,6 +22,11 @@ public class InputValidatorTest
         assertFalse (InputValidator.validateNameField("")); // empty string should be invalid
     }
     
+
+    public void testTitleIsNotEmpty()
+    {
+        assertTrue(InputValidator.setTitle("Red Picture")); //Should 
+    }
     // CREATE MORE TESTS HERE
     
 }
