@@ -10,7 +10,9 @@ public class InputValidator
     {
         // check if name is not empty/null
         // check if name is longer than 2 characters
-        return name != null && !name.isEmpty() && name.length() >= 2;
+        // check if the name is in the language of strings that only contains letters (of all languages) and spaces only
+        // \p{L} is characters of any language, the space after is allowing spaces in the string, all closed in [] with + ensures there's at least one character (because the string can't be empty)
+        return name != null && !name.isEmpty() && name.length() >= 2 && name.matches("[\\p{L} ]+");
     }
 
 }
