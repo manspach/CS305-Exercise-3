@@ -62,5 +62,4 @@ public class InputValidatorTest
     }
     
     // CREATE MORE TESTS HERE
-    
 }
