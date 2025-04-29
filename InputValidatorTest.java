@@ -57,6 +57,8 @@ public class InputValidatorTest
         assertFalse(InputValidator.validateNameField("Alpine!")); // name with punctuation should return false
         assertFalse(InputValidator.validateNameField("Lewis_Hamilton")); // name with special character should return false
         assertFalse(InputValidator.validateNameField("Max33")); // name with numbers should return false
+
+        // assertFalse(InputValidator.validateNameField("Williams")); // name with capital letter should return true
     }
     
     // CREATE MORE TESTS HERE
