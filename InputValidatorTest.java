@@ -71,10 +71,15 @@ public class InputValidatorTest
     
     @Test
     public void testLastNameFieldIsNotEmpty()
-    [
+    {
+        // passing tests
+
+        // valid last name
         assertTrue(InputValidator.validateLastNameField("Anspach"));
+
+        // invalid last name
         assertFalse(InputValidator.validateLastNameField(""));
         assertFalse(InputValidator.validateLastNameField(null));
-    ]
+    }
     
 }
