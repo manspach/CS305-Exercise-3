@@ -69,6 +69,12 @@ public class InputValidatorTest
         // assertFalse(InputValidator.validateNameField("Williams")); // name with capital letter should return true
     }
     
-    // CREATE MORE TESTS HERE
+    @Test
+    public void testLastNameFieldIsNotEmpty()
+    [
+        assertTrue(InputValidator.validateLastNameField("Anspach"));
+        assertFalse(InputValidator.validateLastNameField(""));
+        assertFalse(InputValidator.validateLastNameField(null));
+    ]
     
 }
