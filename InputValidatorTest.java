@@ -103,9 +103,13 @@ public class InputValidatorTest
         assertTrue(InputValidator.validateLastNameField("Pérez Reverte")); // two last names with diacritcs, no hyphens
         assertTrue(InputValidator.validateLastNameField("García-López")); // two last names with diacritics and hyphens
         assertTrue(InputValidator.validateLastNameField("Sainz Vázquez de Castro")); // more than two last names
+        assertTrue(InputValidator.validateLastNameField("ʻAlohi")); // last name beginning with an 'okina
+        assertTrue(InputValidator.validateLastNameField("ʻAlohi ʻAlohi")); // last name with two 'okina
         
         //invalid names
         assertFalse(InputValidator.validateLastNameField("Anspach--Dimmick")); // last name with consecutive hyphens
+        assertFalse(InputValidator.validateLastNameField("Anspach -Dimmick")); // last name with space then hyphen
+        assertFalse(InputValidator.validateLastNameField("Anspach ʻ'-Dimmick")); // last name with space then 'okina then apostrophe then hyphen
         assertFalse(InputValidator.validateLastNameField("-Anspach")); // last name with leading hyphen
         assertFalse(InputValidator.validateLastNameField("Anspach-")); // last name with trailing hyphen
         assertFalse(InputValidator.validateLastNameField("O''connor")); // last name with consecutive apostrophes
@@ -114,6 +118,7 @@ public class InputValidatorTest
         assertFalse(InputValidator.validateLastNameField("  ")); // last name with only spaces
         assertFalse(InputValidator.validateLastNameField(" Anspach")); // last name with leading space
         assertFalse(InputValidator.validateLastNameField("Anspach ")); // last name with trailing space
+        assertTrue(InputValidator.validateLastNameField("ʻʻAlohi")); // last name beginning with two 'okina
     }
     
 }
