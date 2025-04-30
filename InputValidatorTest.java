@@ -81,5 +81,15 @@ public class InputValidatorTest
         assertFalse(InputValidator.validateLastNameField(""));
         assertFalse(InputValidator.validateLastNameField(null));
     }
+
+    @Test
+    public void testLastNameFieldLength()
+    {
+        assertTrue(InputValidator.validateLastNameField("Anspach")); // last name more than 2 character
+        assertTrue(InputValidator.validateLastNameField("An")); // last name exactly 2 characters
+        assertFalse(InputValidator.validateLastNameField("A")); // last name exactly 1 character
+        assertFalse(InputValidator.validateLastNameField("")); // last name empty string
+
+    }
     
 }
