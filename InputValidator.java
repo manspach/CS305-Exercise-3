@@ -17,4 +17,10 @@ public class InputValidator
             && name.matches("^\\p{L}+( \\p{L}+)?$");
     }
 
+    public static boolean validateLastNameField(String lastName)
+    {
+        // check if lastName is not null and not empty
+        return lastName != null && !lastName.isEmpty();
+    }
+
 }
