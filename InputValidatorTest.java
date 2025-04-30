@@ -75,4 +75,48 @@ public class InputValidatorTest
         assertTrue(InputValidator.setTitle("Red Picture")); //Should 
     }
     // CREATE MORE TESTS HERE
+
+    //price
+    public void testCurrencyIsValid()
+    {
+        //valid currencies
+
+        //invalid currencies
+    }
+    public void testCurrencyCanBeEmpty()
+    {
+        //empty tests (should be accepted)
+    }
+
+    //creation date
+    public void testCreationDateIsNotEmpty()
+    {
+        //empty tests (Should not be accepted)
+    }
+    public void testDateIsValidFormat()
+    {
+        //valid date formats
+
+        //invalid date formats
+    }
+    public void testDateIsValid()
+    {
+        //valid date
+
+        //invalid date
+    }
+
+    //medium
+    public void testMediumIsAccepted()
+    {
+        //valid mediums
+
+        //invalid mediums
+    }
+    public void testMediumIsNotEmpty()
+    {
+        //empty tests (should not be accepted)
+    }
+
+    
 }
