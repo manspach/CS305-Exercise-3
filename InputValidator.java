@@ -20,7 +20,7 @@ public class InputValidator
     public static boolean validateLastNameField(String lastName)
     {
         // check if lastName is not null and not empty
-        return lastName != null && !lastName.isEmpty();
+        return lastName != null && !lastName.isEmpty() && lastName.length() >= 2;
     }
 
 }
