@@ -25,13 +25,28 @@ public class InputValidatorTest
 
     public void testTitleIsNotEmpty()
     {
-        assertTrue(InputValidator.validateTitle("Red Picture")); //Should pass
-        assertFalse(InputValidator.validateTitle()); //Should fail
-    }
+        assertTrue(InputValidator.validateTitle("Red Picture")); //Should 
+        assertFalse(InputValidator.validateTitle("")); //Should fail
 
+    }
     public void testTitleLength()
     {
-        assertTrue()
+        assertTrue(InputValidator.validateTitleLength(10)); //Pass
+        assertFalse(InputValidator.validateTitleLength(0)); // Fail
+        assertFalse(InputValidator.validateTitleLength(1001)); // Fail
+    }
+
+    public void testImage()
+    {
+        asserTrue(InputValidator.validateImage("ArtWork.JPG", )); //Pass
+        asserTrue(InputValidator.validateImage("painting.PNG", )); //Pass
+        asserFalse(InputValidator.validateImage("painting.png", )); //Fail
+        asserFalse(InputValidator.validateImage("painting.jpg", )); //Fail
+    }
+
+    public void testDimensions ()
+    {
+        
     }
     // CREATE MORE TESTS HERE
     
