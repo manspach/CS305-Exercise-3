@@ -8,11 +8,13 @@ public class InputValidator
 {
     public static boolean validateNameField(String name)
     {
-        // check if name is not empty/null
-        // check if name is longer than 2 characters
-        // check if the name is in the language of strings that only contains letters (of all languages) and spaces only
-        // \p{L} is characters of any language, the space after is allowing spaces in the string, all closed in [] with + ensures there's at least one character (because the string can't be empty)
-        return name != null && !name.isEmpty() && name.length() >= 2 && name.matches("[\\p{L} ]+");
+        // regex explanation:
+        // ^\\p{L}+ : starts with one or more letters
+        // ( \\p{L}+)? : optionally followed by one space and more letters
+        // $ : end of string
+        return name != null
+            && name.length() >= 2
+            && name.matches("^\\p{L}+( \\p{L}+)?$");
     }
 
 }
