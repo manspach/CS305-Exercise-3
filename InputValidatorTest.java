@@ -6,48 +6,94 @@
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/**
+ * <p>
+ * This class contains test cases for validating various inputs using {@code InputValidator}.
+ * Each test verifies expected behavior when given valid and invalid inputs.
+ * <\p>
+ * 
+ * <p>
+ * This class uses JUnit
+ * <\p>
+ * 
+ * @author Maddie Anspach
+ * @author with assistance from Benjamin
+ * 
+ * @version 01 May 2025
+ * {@link InputValidator}
+ */
+
 public class InputValidatorTest
 {
     
     /*
-     * Example test method for a possible Name field validator method in your
-     * InputValidator class.
      * For more information about assertion tests check:
      * https://www.tutorialspoint.com/junit/junit_using_assertion.htm
      */
+
+    /**
+     * Tests the {@code validateNameField} method of {@link InputValidator} class.
+     * This test verifies that:
+     * <ul>
+     *   <li>A non-empty string is considered valid and returns {@code true}.</li>
+     *   <li>An empty string returns {@code false}.</li>
+     *   <li>A {@code null} value returns {@code false}.</li>
+     * </ul>
+     **/
     @Test
     public void testNameFieldIsNotEmpty()
     {
-        // passing tests
-        assertTrue(InputValidator.validateNameField("Maddie")); // non-empty string should return true (test should pass)
-        assertFalse(InputValidator.validateNameField("")); // empty string should return false (test should pass)
-        assertFalse(InputValidator.validateNameField(null)); // null string should return false (test should pass)
+        // valid name
+        assertTrue(InputValidator.validateNameField("Maddie")); // non-empty string should return true
 
-        // failing tests
-        // assertFalse(InputValidator.validateNameField("Mae")); // non-empty string should return true (test should fail)
-        // assertTrue(InputValidator.validateNameField("")); // empty string should return false (test should fail)
-        // assertTrue(InputValidator.validateNameField(null)); // null string should return false (test should fail)
+        // invalid name
+        assertFalse(InputValidator.validateNameField("")); // empty string should return false
+        assertFalse(InputValidator.validateNameField(null)); // null string should return false
     }
 
+    /**
+     * Tests the length validation logic in the {@code validateNameField} method of the {@link InputValidator} class.
+     * This test verifies that:
+     * <ul>
+     *   <li>Names with two or more characters are considered valid and return {@code true}.</li>
+     *   <li>Names with fewer than two characters (including empty strings) return {@code false}.</li>
+     * </ul>
+     **/
     @Test
     public void testNameFieldLength()
     {
-        // passing tests
-        assertTrue(InputValidator.validateNameField("Madison")); // name longer than 2 characters should return true (test should pass)
-        assertFalse(InputValidator.validateNameField("M")); // name less than two characters should return false (test should pass)
-        assertFalse(InputValidator.validateNameField("")); // empty name should return false (test should pass)
-        
-        // failing tests
-        // assertFalse(InputValidator.validateNameField("Anspach")); // name longer than 2 characters should return true (test should pass)
-        // assertTrue(InputValidator.validateNameField("A")); // name less than two characters should return false (test should pass)
-        // assertTrue(InputValidator.validateNameField("")); // empty name should return false (test should pass)
+        // valid names
+        assertTrue(InputValidator.validateNameField("Madison")); // name longer than 2 characters should return true
+        assertTrue(InputValidator.validateNameField("Ma")); // name equal to 2 characters should return true
+
+
+        // invalid names
+        assertFalse(InputValidator.validateNameField("M")); // name less than two characters should return false
+        assertFalse(InputValidator.validateNameField("")); // empty name should return false
     }
 
+    /**
+     * Tests allowed characters logic in {@code validateNameField} method in {@link InputValidator}.
+     * Tests a variety of valid and invalid name formats, including support for:
+     * <ul>
+     *   <li>Capitalization<\li>
+     *   <li>Diacritics<\li>
+     *   <li>Spaces (limited to one space)<\li>
+     *   <li>Non-Latin characters<\li>
+     *   <li>Combining marks<\li>
+     * </ul>
+     * 
+     * Also tests rejection of:
+     * <ul>
+     *   <li>Multiple spaces<\li>
+     *   <li>Punctuation or special characters<\li>
+     *   <li>Numbers<\li>
+     *   <li>Leading/trailing spaces<\li>
+     * </ul>
+     **/
     @Test
     public void testNameFieldCharacters()
     {
-        // passing tests
-
         // valid names
         assertTrue(InputValidator.validateNameField("Ferrari")); // name with capital letter should return true
         assertTrue(InputValidator.validateNameField("haas")); // name with no capital letters should return true
@@ -57,6 +103,7 @@ public class InputValidatorTest
         assertTrue(InputValidator.validateNameField("Sergio Pérez")); // name with letters, a space, and diacritic should return true
         assertTrue(InputValidator.validateNameField("Αλεξάνδρα")); // Alexandra in Greek, name in other languages should return true
         assertTrue(InputValidator.validateNameField("hellō")); // name with combining marks (thanks Benjamin for this test)
+        
         // invalid names
         assertFalse(InputValidator.validateNameField("Charles Marc Hervé Perceval Leclerc")); // names with multiple spaces should return false (people don't have more than two first names)
         assertFalse(InputValidator.validateNameField("Alpine!")); // name with punctuation should return false
@@ -65,8 +112,6 @@ public class InputValidatorTest
         assertFalse(InputValidator.validateNameField("  ")); // name containing only spaces should return false
         assertFalse(InputValidator.validateNameField(" Williams")); // name with leading space should return false
         assertFalse(InputValidator.validateNameField("Mercedes ")); // name with trailing space should return false
-
-        // assertFalse(InputValidator.validateNameField("Williams")); // name with capital letter should return true
     }
     
     @Test
