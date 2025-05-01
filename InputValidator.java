@@ -31,4 +31,8 @@ public class InputValidator
             && lastName.matches("^[\\p{L}]+([ '\\-]?[\\p{L}]+)*$");
     }
 
+    public static boolean validateEmailField(String email)
+    {
+        return email != null && !email.isEmpty();
+    }
 }
