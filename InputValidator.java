@@ -31,4 +31,28 @@ public class InputValidator
             && lastName.matches("^[\\p{L}]+([ '\\-]?[\\p{L}]+)*$");
     }
 
+
+    public static boolean validateTitle(String title)
+    {
+        if (title == null || title.trim().isEmpty())
+            return false;
+    }
+    public static boolean validateTitleLength(int titleLength)
+    {
+        return titleLength >= 0 && titleLength < 100;
+    }
+    public static boolean validateDescription(String description)
+    {
+        if (description == null || description.trim().isEmpty())
+            return false;
+    }
+    public static boolean validateDescriptionLength(int descriptionLength)
+    {
+        return descriptionLength >= 0 && descriptionLength < 1000;
+    }
+    public static boolean validateImage(String fileName, long fileSize)
+    {
+
+    }
+    public static boolean isValidDimensions(String dimensions){}
 }
