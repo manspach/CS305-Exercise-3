@@ -49,6 +49,6 @@ public class InputValidator
     public static boolean validateUsernameField(String username)
     {
         
-        return username != null && !username.isEmpty();
+        return username != null && !username.isEmpty() && username.length() >= 1 && username.length() <= 20;
     }
 }
