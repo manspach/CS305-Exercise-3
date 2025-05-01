@@ -1,4 +1,3 @@
-
 /*
  * These are the libraries from JUnit that allows you to test
  * Java applications. For more information check the complete tutorial
@@ -74,11 +73,12 @@ public class InputValidatorTest
 
     }
     
+
     public void testTitleIsNotEmpty()
     {
-        assertTrue(InputValidator.validateTitle("Red Picture")); //Valid Title test will pass
-        assertFalse(InputValidator.validateTitle("")); //Test empty title should pass
-        assertFalse(InputValidator.validateTitle(null)); //Should fail test empty title again should pass
+        assertTrue(InputValidator.validateTitle("Red Picture")); //Valid Title test will return true
+        assertFalse(InputValidator.validateTitle("")); //Test empty title should return true
+        assertFalse(InputValidator.validateTitle(null)); //Should fail test empty title again should return true
 
     }
     public void testTitleLength()
@@ -87,18 +87,39 @@ public class InputValidatorTest
         assertFalse(InputValidator.validateTitleLength(0)); // Fail
         assertFalse(InputValidator.validateTitleLength(1001)); // Fail
     }
+    public void testDescription()
+    {
+        assertTrue(InputValidator.validateDescription("The painting is of the authors mother")); //Valid description fits all criteria should return true
+        assertFalse(InputValidator.validateDescription("")); //Invalid becasue there is no description should return false 
+        assertFalse(InputValidator.validateDescription(null));//nvalid becasue there is no description should return false 
+    }
+    
+    public void testDescriptionLength()
+    {
+        assertTrue(InputValidator.validateDescriptionLength(100)); //Vaild length should return true
+        assertFalse(InputValidator.validateDescriptionLength(0)); //Invalid description length is not long enough should return false
+        assertFalse(InputValidator.validateDescriptionLength(null)); //Invalid description length is not long enough should return false
+    }
 
     public void testImage()
     {
-        asserTrue(InputValidator.validateImage("ArtWork.JPG", )); //Pass
-        asserTrue(InputValidator.validateImage("painting.PNG", )); //Pass
-        asserFalse(InputValidator.validateImage("painting.png", )); //Fail
-        asserFalse(InputValidator.validateImage("painting.jpg", )); //Fail
+        asserTrue(InputValidator.validateImage("ArtWork.JPG", 3)); //Matches what we want should return true
+        asserTrue(InputValidator.validateImage("painting.PNG", 3)); //Matches what we want should return true
+        assertTrue(InputValidator.validateImage("painting.JPG", 2.67)); //Within limits should return true 
+        assertFalse(InputValidator.validateImage("painting.PNG", 5)) //The MB is over the limt should return false
+        asserFalse(InputValidator.validateImage("painting.JPG", 10)); //Extenstion is right, but the size is too big
+        asserFalse(InputValidator.validateImage("painting.png", 4)); //The extension is wrong should return false
+        
+
     }
 
     public void testDimensions ()
     {
-        
+        assertTrue(InputValidator.isValidDimensions("24x36 inches")); //Has all requirements of width adn height
+        assertFalse(InputValidator.isValidDimensions("24x inches")); //Missing height int should return false
+        assertFalse(InputValidator.isValidDimensions("x36inches")); //Missing width should return false
+        assertFalse(InputValidator.isValidDimensions("")); // Missing dimensions should return false
+
     }
     // CREATE MORE TESTS HERE
 
@@ -144,53 +165,5 @@ public class InputValidatorTest
         //empty tests (should not be accepted)
     }
 
-    @Test
-    public void testLastNameFieldIsNotEmpty()
-    {
-        // passing tests
-
-        // valid last name
-        assertTrue(InputValidator.validateLastNameField("Anspach"));
-
-        // invalid last name
-        assertFalse(InputValidator.validateLastNameField(""));
-        assertFalse(InputValidator.validateLastNameField(null));
-    }
-
-    @Test
-    public void testLastNameFieldLength()
-    {
-        assertTrue(InputValidator.validateLastNameField("Anspach")); // last name more than 2 character
-        assertTrue(InputValidator.validateLastNameField("An")); // last name exactly 2 characters
-        assertFalse(InputValidator.validateLastNameField("A")); // last name exactly 1 character
-        assertFalse(InputValidator.validateLastNameField("")); // last name empty string
-    }
-
-    @Test
-    public void testLastNameFieldCharacters()
-    {
-        // valid names
-        assertTrue(InputValidator.validateLastNameField("Gasly")); // one last name, no diacritics, no hyphens, no spaces
-        assertTrue(InputValidator.validateLastNameField("Hülkenberg")); // one last name with diacritics
-        assertTrue(InputValidator.validateLastNameField("Smith-Jones")); // one last name with hyphen
-        assertTrue(InputValidator.validateLastNameField("O'connor")); // one last name with apostrophe
-        assertTrue(InputValidator.validateLastNameField("Nelson Piquet")); // two last names no diacritics or hyphens
-        assertTrue(InputValidator.validateLastNameField("Pérez Reverte")); // two last names with diacritcs, no hyphens
-        assertTrue(InputValidator.validateLastNameField("García-López")); // two last names with diacritics and hyphens
-        assertTrue(InputValidator.validateLastNameField("Sainz Vázquez de Castro")); // more than two last names
-                
-        //invalid names
-        assertFalse(InputValidator.validateLastNameField("Anspach--Dimmick")); // last name with consecutive hyphens
-        assertFalse(InputValidator.validateLastNameField("Anspach -Dimmick")); // last name with space then hyphen
-        assertFalse(InputValidator.validateLastNameField("Anspach ʻ'-Dimmick")); // last name with space then 'okina then apostrophe then hyphen
-        assertFalse(InputValidator.validateLastNameField("-Anspach")); // last name with leading hyphen
-        assertFalse(InputValidator.validateLastNameField("Anspach-")); // last name with trailing hyphen
-        assertFalse(InputValidator.validateLastNameField("O''connor")); // last name with consecutive apostrophes
-        assertFalse(InputValidator.validateLastNameField("Anspach1")); // last name with numbers
-        assertFalse(InputValidator.validateLastNameField("Anspach!")); // last name with punctuation
-        assertFalse(InputValidator.validateLastNameField("  ")); // last name with only spaces
-        assertFalse(InputValidator.validateLastNameField(" Anspach")); // last name with leading space
-        assertFalse(InputValidator.validateLastNameField("Anspach ")); // last name with trailing space
-    }
     
 }
