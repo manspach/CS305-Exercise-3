@@ -36,7 +36,7 @@ public class InputValidatorTest
         assertTrue(InputValidator.validateNameField("Madison")); // name longer than 2 characters should return true (test should pass)
         assertFalse(InputValidator.validateNameField("M")); // name less than two characters should return false (test should pass)
         assertFalse(InputValidator.validateNameField("")); // empty name should return false (test should pass)
-
+        
         // failing tests
         // assertFalse(InputValidator.validateNameField("Anspach")); // name longer than 2 characters should return true (test should pass)
         // assertTrue(InputValidator.validateNameField("A")); // name less than two characters should return false (test should pass)
@@ -56,7 +56,7 @@ public class InputValidatorTest
         assertTrue(InputValidator.validateNameField("Lando Norris")); // name with letters and a space should return true
         assertTrue(InputValidator.validateNameField("Sergio Pérez")); // name with letters, a space, and diacritic should return true
         assertTrue(InputValidator.validateNameField("Αλεξάνδρα")); // Alexandra in Greek, name in other languages should return true
-
+        assertTrue(InputValidator.validateNameField("hellō")); // name with combining marks (thanks Benjamin for this test)
         // invalid names
         assertFalse(InputValidator.validateNameField("Charles Marc Hervé Perceval Leclerc")); // names with multiple spaces should return false (people don't have more than two first names)
         assertFalse(InputValidator.validateNameField("Alpine!")); // name with punctuation should return false
@@ -103,7 +103,8 @@ public class InputValidatorTest
         assertTrue(InputValidator.validateLastNameField("Pérez Reverte")); // two last names with diacritcs, no hyphens
         assertTrue(InputValidator.validateLastNameField("García-López")); // two last names with diacritics and hyphens
         assertTrue(InputValidator.validateLastNameField("Sainz Vázquez de Castro")); // more than two last names
-                
+        assertTrue(InputValidator.validateNameField("hellō")); // name with combining marks (thanks Benjamin for this test)
+     
         //invalid names
         assertFalse(InputValidator.validateLastNameField("Anspach--Dimmick")); // last name with consecutive hyphens
         assertFalse(InputValidator.validateLastNameField("Anspach -Dimmick")); // last name with space then hyphen
@@ -127,5 +128,50 @@ public class InputValidatorTest
         // invalid emails
         assertFalse(InputValidator.validateEmailField("")); // empty email should reject
         assertFalse(InputValidator.validateEmailField(null)); // null should reject
+    }
+
+    @Test
+    public void testEmailFieldFormat()
+    {
+        // emails should be of the format: string1@string2.string3
+        // string1 : cannot contain spaces
+        // string2 : cannot contain spaces
+        // string3 : cannot contain spaces
+
+        // valid emails
+        assertTrue(InputValidator.validateEmailField("LewisHamilton44@ferrari.com")); // email with numbers in username
+        assertTrue(InputValidator.validateEmailField("Max_Verstappen@redbull.org")); // email with underscore in username
+        assertTrue(InputValidator.validateEmailField("FernandoAlonso!@aston-martin.edu")); // email with punctuation and dash in domain
+        assertTrue(InputValidator.validateEmailField("Nico.Rosberg@mercedes.net")); // email with period
+        assertTrue(InputValidator.validateEmailField("Michael-Schumacher@ferrari.com")); // email with dash in username
+        assertTrue(InputValidator.validateEmailField("driver@f1.co.uk")); // multiple domain suffix parts
+        assertTrue(InputValidator.validateEmailField("a@b.c")); // shortest possible email following specifications
+
+        // invalid emails
+
+        // space testing
+        assertFalse(InputValidator.validateEmailField("lando norris@mclaren.com")); // email with space in string 1
+        assertFalse(InputValidator.validateEmailField(" landonorris@mclaren.com")); // email with space at beginning of string 1
+        assertFalse(InputValidator.validateEmailField("landonorris @mclaren.com")); // email with space at end of string 1
+        assertFalse(InputValidator.validateEmailField("charlesleclerc@ferr ari.com")); // email with space in string 2
+        assertFalse(InputValidator.validateEmailField("charlesleclerc@ ferrari.com")); // email with space at beginning of string 2
+        assertFalse(InputValidator.validateEmailField("charlesleclerc@ferrari .com")); // email with space at end of string 2
+        assertFalse(InputValidator.validateEmailField("georgerussell@mercedes.n et")); // email with space in string 3
+        assertFalse(InputValidator.validateEmailField("georgerussell@mercedes. net")); // email with space at beginning of string 3
+        assertFalse(InputValidator.validateEmailField("georgerussell@mercedes.net ")); // email with space at end of string 3
+
+        // @ testing
+        assertFalse(InputValidator.validateEmailField("olliebearman@@hass.com")); // double @
+        assertFalse(InputValidator.validateEmailField("ollie@bearman@hass.com")); // extra @
+        assertFalse(InputValidator.validateEmailField("olliebearman@hass.c@om")); // extra @
+        assertFalse(InputValidator.validateEmailField("olliebearmanhass.com")); // no @
+
+        // string2.string3 testing
+        assertFalse(InputValidator.validateEmailField("isackhadjar@racingbullsorg")); // missing .
+
+        // character length of each substring
+        assertFalse(InputValidator.validateEmailField("@mercedes.net")); // missing string 1
+        assertFalse(InputValidator.validateEmailField("andreakimiantonelli@.net")); // missing string 2
+        assertFalse(InputValidator.validateEmailField("andreakimiantonelli@mercedes.")); // missing string 3
     }
 }
