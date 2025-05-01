@@ -19,7 +19,7 @@ public class InputValidatorTest
     @Test
 
     public void testNameFieldIsNotEmpty()
-    
+
     {
         // passing tests
         assertTrue(InputValidator.validateNameField("Maddie")); // non-empty string should return true (test should pass)
@@ -76,8 +76,9 @@ public class InputValidatorTest
 
     public void testTitleIsNotEmpty()
     {
-        assertTrue(InputValidator.validateTitle("Red Picture")); //Should 
-        assertFalse(InputValidator.validateTitle("")); //Should fail
+        assertTrue(InputValidator.validateTitle("Red Picture")); //Valid Title test will pass
+        assertFalse(InputValidator.validateTitle("")); //Test empty title should pass
+        assertFalse(InputValidator.validateTitle(null)); //Should fail test empty title again should pass
 
     }
     public void testTitleLength()
