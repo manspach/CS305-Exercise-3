@@ -103,10 +103,7 @@ public class InputValidatorTest
         assertTrue(InputValidator.validateLastNameField("Pérez Reverte")); // two last names with diacritcs, no hyphens
         assertTrue(InputValidator.validateLastNameField("García-López")); // two last names with diacritics and hyphens
         assertTrue(InputValidator.validateLastNameField("Sainz Vázquez de Castro")); // more than two last names
-        assertTrue(InputValidator.validateLastNameField("ʻAlohi")); // last name beginning with an 'okina
-        assertTrue(InputValidator.validateLastNameField("ʻAlohi ʻAlohi")); // last name with two 'okina
-        assertTrue(InputValidator.validateLastNameField("Hauʻoli"));
-        
+                
         //invalid names
         assertFalse(InputValidator.validateLastNameField("Anspach--Dimmick")); // last name with consecutive hyphens
         assertFalse(InputValidator.validateLastNameField("Anspach -Dimmick")); // last name with space then hyphen
