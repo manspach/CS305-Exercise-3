@@ -118,4 +118,14 @@ public class InputValidatorTest
         assertFalse(InputValidator.validateLastNameField("Anspach ")); // last name with trailing space
     }
     
+    @Test
+    public void testEmailFieldIsEmpty()
+    {
+        // valid emails
+        assertTrue(InputValidator.validateEmailField("username@domain.com")); // example email
+
+        // invalid emails
+        assertFalse(InputValidator.validateEmailField("")); // empty email should reject
+        assertFalse(InputValidator.validateEmailField(null)); // null should reject
+    }
 }
