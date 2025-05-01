@@ -45,4 +45,10 @@ public class InputValidator
             && !email.isEmpty()
             && email.matches("^[^\\s@]+@[^\\s@]+(\\.[^\\s@]+)+$");
     }
+
+    public static boolean validateUsernameField(String username)
+    {
+        
+        return username != null && !username.isEmpty();
+    }
 }
