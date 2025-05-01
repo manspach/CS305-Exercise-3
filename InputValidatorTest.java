@@ -6,6 +6,7 @@
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+
 public class InputValidatorTest
 {
     
@@ -16,7 +17,9 @@ public class InputValidatorTest
      * https://www.tutorialspoint.com/junit/junit_using_assertion.htm
      */
     @Test
+
     public void testNameFieldIsNotEmpty()
+
     {
         // passing tests
         assertTrue(InputValidator.validateNameField("Maddie")); // non-empty string should return true (test should pass)
@@ -67,12 +70,14 @@ public class InputValidatorTest
         assertFalse(InputValidator.validateNameField("Mercedes ")); // name with trailing space should return false
 
         // assertFalse(InputValidator.validateNameField("Williams")); // name with capital letter should return true
+
     }
     
     public void testTitleIsNotEmpty()
     {
-        assertTrue(InputValidator.validateTitle("Red Picture")); //Should 
-        assertFalse(InputValidator.validateTitle("")); //Should fail
+        assertTrue(InputValidator.validateTitle("Red Picture")); //Valid Title test will pass
+        assertFalse(InputValidator.validateTitle("")); //Test empty title should pass
+        assertFalse(InputValidator.validateTitle(null)); //Should fail test empty title again should pass
 
     }
     public void testTitleLength()
