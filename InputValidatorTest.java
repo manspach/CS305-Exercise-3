@@ -297,9 +297,30 @@ public class InputValidatorTest
     {
         // valid username
         assertTrue(InputValidator.validateUsernameField("maddie")); // non-empty string should return true
-        
+
         // invalid username
         assertFalse(InputValidator.validateUsernameField("")); // empty string should return false
         assertFalse(InputValidator.validateUsernameField(null)); // null string should return false
+    }
+
+    /**
+     * Tests the length validation logic in the {@code validateUsernameField} method of the {@link InputValidator} class.
+     * This test verifies that:
+     * <ul>
+     *   <li>Usernames with 1-20 characters are considered valid and return {@code true}.</li>
+     *   <li>Names with fewer than 1 character (including empty strings) return {@code false}.</li>
+     *   <li>Names with more than 20 characters return {@code false}.</li>
+     * </ul>
+     **/
+    @Test
+    public void testUsernameFieldLength()
+    {
+        // valid usernames
+        assertTrue(InputValidator.validateUsernameField("m")); // username with one character should be accepted
+        assertTrue(InputValidator.validateUsernameField("madisonmaeanspach444")); // username with 20 characters should be accepted
+
+        // invalid usernames
+        assertFalse(InputValidator.validateUsernameField("")); // empty string is too short
+        assertFalse(InputValidator.validateUsernameField("madisonmaeanspach1144")); // username with 21 characters should be rejected
     }
 }
