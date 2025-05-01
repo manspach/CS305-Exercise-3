@@ -114,6 +114,15 @@ public class InputValidatorTest
         assertFalse(InputValidator.validateNameField("Mercedes ")); // name with trailing space should return false
     }
     
+    /**
+     * Tests the {@code validateLastNameField} method of {@link InputValidator} class.
+     * This test verifies that:
+     * <ul>
+     *   <li>A non-empty string is considered valid and returns {@code true}.</li>
+     *   <li>An empty string returns {@code false}.</li>
+     *   <li>A {@code null} value returns {@code false}.</li>
+     * </ul>
+     **/
     @Test
     public void testLastNameFieldIsNotEmpty()
     {
@@ -127,6 +136,14 @@ public class InputValidatorTest
         assertFalse(InputValidator.validateLastNameField(null));
     }
 
+    /**
+     * Tests the length validation logic in the {@code validateLastNameField} method of the {@link InputValidator} class.
+     * This test verifies that:
+     * <ul>
+     *   <li>Names with two or more characters are considered valid and return {@code true}.</li>
+     *   <li>Names with fewer than two characters (including empty strings) return {@code false}.</li>
+     * </ul>
+     **/
     @Test
     public void testLastNameFieldLength()
     {
@@ -136,6 +153,26 @@ public class InputValidatorTest
         assertFalse(InputValidator.validateLastNameField("")); // last name empty string
     }
 
+    /**
+     * Tests allowed characters logic in {@code validateLastNameField} method in {@link InputValidator}.
+     * Tests a variety of valid and invalid name formats, including support for:
+     * <ul>
+     *   <li>Diacritics<\li>
+     *   <li>Hyphens (if used correctly)<\li>
+     *   <li>Apostrophes (if used correctly)<\li>
+     *   <li>Multiple last names separated by spaces<\li>
+     *   <li>Non-Latin characters<\li>
+     *   <li>Combining marks<\li>
+     * </ul>
+     * 
+     * Also tests rejection of:
+     * <ul>
+     *   <li>Consecutive or improperly spaced hyphens/apostrophes<\li>
+     *   <li>Punctuation or special characters<\li>
+     *   <li>Numbers<\li>
+     *   <li>Leading/trailing spaces<\li>
+     * </ul>
+     **/
     @Test
     public void testLastNameFieldCharacters()
     {
@@ -149,6 +186,7 @@ public class InputValidatorTest
         assertTrue(InputValidator.validateLastNameField("García-López")); // two last names with diacritics and hyphens
         assertTrue(InputValidator.validateLastNameField("Sainz Vázquez de Castro")); // more than two last names
         assertTrue(InputValidator.validateNameField("hellō")); // name with combining marks (thanks Benjamin for this test)
+        assertTrue(InputValidator.validateNameField("Αλεξάνδρα")); // Alexandra in Greek, name in other languages should return true
      
         //invalid names
         assertFalse(InputValidator.validateLastNameField("Anspach--Dimmick")); // last name with consecutive hyphens
@@ -162,8 +200,20 @@ public class InputValidatorTest
         assertFalse(InputValidator.validateLastNameField("  ")); // last name with only spaces
         assertFalse(InputValidator.validateLastNameField(" Anspach")); // last name with leading space
         assertFalse(InputValidator.validateLastNameField("Anspach ")); // last name with trailing space
+        assertFalse(InputValidator.validateNameField("Alpine!")); // name with punctuation should return false
+        assertFalse(InputValidator.validateNameField("Lewis_Hamilton")); // name with special characters should return false
+        assertFalse(InputValidator.validateNameField("Max33")); // name with numbers should return false
     }
     
+    /**
+     * Tests the {@code validateEmailField} method of {@link InputValidator} class.
+     * This test verifies that:
+     * <ul>
+     *   <li>A non-empty string is considered valid and returns {@code true}.</li>
+     *   <li>An empty string returns {@code false}.</li>
+     *   <li>A {@code null} value returns {@code false}.</li>
+     * </ul>
+     **/
     @Test
     public void testEmailFieldIsEmpty()
     {
@@ -175,14 +225,28 @@ public class InputValidatorTest
         assertFalse(InputValidator.validateEmailField(null)); // null should reject
     }
 
+    /**
+     * Tests the format validation logic in the {@code validateEmailField} method in {@link InputValidator}.
+     * Verifies a variety of valid and invalid email address formats based on the format {@code string1@string2.string3}
+     * 
+     * Valid email formats include:
+     * <ul>
+     *   <li>Exactly one {@code @} symbol separating string1 and string 2</li>
+     *   <li>A period separating string2 and string3</li>
+     *   <li>Support for any characters in substrings, except additional {@code @} symbols and spaces</li>
+     * </ul>
+     * 
+     * Invalid email formats include:
+     * <ul>
+     *   <li>Addresses with spaces in any part</li>
+     *   <li>Multiple or misplaced {@code @} symbols</li>
+     *   <li>Missing string1, string2, or string3</li>
+     *   <li>Missing periods</li>
+     * </ul>
+     */
     @Test
     public void testEmailFieldFormat()
     {
-        // emails should be of the format: string1@string2.string3
-        // string1 : cannot contain spaces
-        // string2 : cannot contain spaces
-        // string3 : cannot contain spaces
-
         // valid emails
         assertTrue(InputValidator.validateEmailField("LewisHamilton44@ferrari.com")); // email with numbers in username
         assertTrue(InputValidator.validateEmailField("Max_Verstappen@redbull.org")); // email with underscore in username
