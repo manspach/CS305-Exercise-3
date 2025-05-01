@@ -9,12 +9,26 @@ public class InputValidator
     public static boolean validateNameField(String name)
     {
         // regex explanation:
-        // ^\\p{L}+ : starts with one or more letters
+        // ^ : start
+        // \\p{L}+ : starts with one or more letters
         // ( \\p{L}+)? : optionally followed by one space and more letters
-        // $ : end of string
+        // $ : stop
         return name != null
             && name.length() >= 2
-            && name.matches("^\\p{L}+( \\p{L}+)?$");
+            && name.matches("^[\\p{L}]+( [\\p{L}]+)?$");
+    }
+
+    public static boolean validateLastNameField(String lastName)
+    {
+        // regex explanation:
+        // ^ : start
+        // [\\p{L}]+ : at least one letter
+        // [ '\\-]? : optionally followed by one space, one apostrophe, or one hypen
+        // [\\p{L}]+ : must be followed by at least one letter
+        // ([ '\\-]?[\\p{L}]+)* : entire second statement happening zero or more times
+        return lastName != null
+            && lastName.length() >= 2
+            && lastName.matches("^[\\p{L}]+([ '\\-]?[\\p{L}]+)*$");
     }
 
 }
