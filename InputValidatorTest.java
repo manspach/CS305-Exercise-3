@@ -22,7 +22,6 @@ import static org.junit.Assert.*;
  * @version 01 May 2025
  * {@link InputValidator}
  */
-
 public class InputValidatorTest
 {
     
@@ -282,5 +281,25 @@ public class InputValidatorTest
         assertFalse(InputValidator.validateEmailField("@mercedes.net")); // missing string 1
         assertFalse(InputValidator.validateEmailField("andreakimiantonelli@.net")); // missing string 2
         assertFalse(InputValidator.validateEmailField("andreakimiantonelli@mercedes.")); // missing string 3
+    }
+
+    /**
+     * Tests the {@code validateUsernameField} method of {@link InputValidator} class.
+     * This test verifies that:
+     * <ul>
+     *   <li>A non-empty string is considered valid and returns {@code true}.</li>
+     *   <li>An empty string returns {@code false}.</li>
+     *   <li>A {@code null} value returns {@code false}.</li>
+     * </ul>
+     **/
+    @Test
+    public void testUsernameFieldIsEmpty()
+    {
+        // valid username
+        assertTrue(InputValidator.validateUsernameField("maddie")); // non-empty string should return true
+        
+        // invalid username
+        assertFalse(InputValidator.validateUsernameField("")); // empty string should return false
+        assertFalse(InputValidator.validateUsernameField(null)); // null string should return false
     }
 }
