@@ -22,37 +22,47 @@ public class InputValidatorTest {
     
     // CREATE MORE TESTS HERE
 
-    //price
-    public void testCurrencyIsValid()
+    //*****PRICE*****
+    public void testCurrencyFormatIsValid()
     {
-        //valid currencies
+        //valid currency format
 
-        //invalid currencies
+        //invalid currency format
+    }
+    public void testCurrencyTypeIsValid()
+    {
+        //valid currency type
+
+        //invalid currency type
     }
     public void testCurrencyCanBeEmpty()
     {
         //empty tests (should be accepted)
+
+        //not empty test (should also be accepted)
     }
 
-    //creation date
+    //*****CREATION DATE*****
     public void testCreationDateIsNotEmpty()
     {
-        //empty tests (Should not be accepted)
+        //empty tests (Should NOT be accepted)
+
+        //not empty tests (SHOULD be accepted)
     }
-    public void testDateIsValidFormat()
+    public void testCreationDateIsValidFormat()
     {
         //valid date formats
 
         //invalid date formats
     }
-    public void testDateIsValid()
+    public void testCreationDateIsValid()
     {
         //valid date
 
         //invalid date
     }
 
-    //medium
+    //***MEDIUM***
     public void testMediumIsAccepted()
     {
         //valid mediums
@@ -61,7 +71,9 @@ public class InputValidatorTest {
     }
     public void testMediumIsNotEmpty()
     {
-        //empty tests (should not be accepted)
+        //empty tests (should NOT be accepted)
+
+        //not empty tests (SHOULD be accepted)
     }
 
     
