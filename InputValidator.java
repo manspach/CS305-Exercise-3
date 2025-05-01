@@ -4,7 +4,7 @@
  * methods to validate inputs from the user.
  */
 
-public class InputValidator 
+public class InputValidator
 {
     public static boolean validateNameField(String name)
     {
@@ -15,7 +15,7 @@ public class InputValidator
         // $ : stop
         return name != null
             && name.length() >= 2
-            && name.matches("^[\\p{L}]+( [\\p{L}]+)?$");
+            && name.matches("^[\\p{L}\\p{M}]+( [\\p{L}\\p{M}]+)?$");
     }
 
     public static boolean validateLastNameField(String lastName)
@@ -28,7 +28,21 @@ public class InputValidator
         // ([ '\\-]?[\\p{L}]+)* : entire second statement happening zero or more times
         return lastName != null
             && lastName.length() >= 2
-            && lastName.matches("^[\\p{L}]+([ '\\-]?[\\p{L}]+)*$");
+            && lastName.matches("^[\\p{L}\\p{M}]+([ '\\-]?[\\p{L}\\p{M}]+)*$");
     }
 
+    public static boolean validateEmailField(String email)
+    {
+        // regex explanation:
+        // ^ : start
+        // [^\\s@]+ : string with at least one character, but no spaces and no @
+        // @ : followed by exactly one @
+        // [^\\s@]+ : followed by a string with at least one character, no spaces and no @
+        // \\. : followed by one period
+        // [^\\s@]+ : followed by a string with at least one character, no spaces and no @
+        // (\\.[^\\s@]+)+ : entire expression can be repeated (consider emails with a country code)
+        return email != null
+            && !email.isEmpty()
+            && email.matches("^[^\\s@]+@[^\\s@]+(\\.[^\\s@]+)+$");
+    }
 }
