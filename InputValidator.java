@@ -4,7 +4,7 @@
  * methods to validate inputs from the user.
  */
 
-public class InputValidator 
+public class InputValidator
 {
     public static boolean validateNameField(String name)
     {
@@ -15,7 +15,7 @@ public class InputValidator
         // $ : stop
         return name != null
             && name.length() >= 2
-            && name.matches("^[\\p{L}]+( [\\p{L}]+)?$");
+            && name.matches("^[\\p{L}\\p{M}]+( [\\p{L}\\p{M}]+)?$");
     }
 
     public static boolean validateLastNameField(String lastName)
@@ -28,31 +28,58 @@ public class InputValidator
         // ([ '\\-]?[\\p{L}]+)* : entire second statement happening zero or more times
         return lastName != null
             && lastName.length() >= 2
-            && lastName.matches("^[\\p{L}]+([ '\\-]?[\\p{L}]+)*$");
+            && lastName.matches("^[\\p{L}\\p{M}]+([ '\\-]?[\\p{L}\\p{M}]+)*$");
     }
 
 
+    public static boolean validateEmailField(String email)
+    {
+        // regex explanation:
+        // ^ : start
+        // [^\\s@]+ : string with at least one character, but no spaces and no @
+        // @ : followed by exactly one @
+        // [^\\s@]+ : followed by a string with at least one character, no spaces and no @
+        // \\. : followed by one period
+        // [^\\s@]+ : followed by a string with at least one character, no spaces and no @
+        // (\\.[^\\s@]+)+ : entire expression can be repeated (consider emails with a country code)
+        return email != null
+            && !email.isEmpty()
+            && email.matches("^[^\\s@]+@[^\\s@]+(\\.[^\\s@]+)+$");
+    }
+
+    
     public static boolean validateTitle(String title)
     {
-        if (title == null || title.trim().isEmpty())
-            return false;
+          return title != null && !title.trim().isEmpty();
     }
+
     public static boolean validateTitleLength(int titleLength)
     {
-        return titleLength >= 0 && titleLength < 100;
+        return titleLength > 0 && titleLength < 100;
     }
+
     public static boolean validateDescription(String description)
     {
-        if (description == null || description.trim().isEmpty())
-            return false;
+        return description != null && !description.trim().isEmpty();
     }
+
     public static boolean validateDescriptionLength(int descriptionLength)
     {
-        return descriptionLength >= 0 && descriptionLength < 1000;
+        return descriptionLength > 0 && descriptionLength < 1000;
     }
-    public static boolean validateImage(String fileName, long fileSize)
-    {
 
+    public static boolean validateImage(String fileName, double fileSize)
+    {
+        if (fileName == null || fileSize > 4) return false;
+
+    
+        return fileName.endsWith(".JPG") || fileName.endsWith(".PNG");
     }
-    public static boolean isValidDimensions(String dimensions){}
+
+    public static boolean isValidDimensions(String width, String height, String unit)
+    {
+        if(width.isEmpty() || height.isEmpty() || unit.isEmpty()) return false; 
+        return true; 
+    }
+
 }
