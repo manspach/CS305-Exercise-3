@@ -6,7 +6,19 @@
 
 public class InputValidator
 {
-    //return in format of(valid symbol(currencySymbol))(valid numbers at least 1(dollars))(period .(period))(2 digits(cents)) or empty
+    /**
+     * Validates a currency field input.
+     *
+     * This validation ensures that:
+     * <ul>
+     *   <li>The currency field starts with a valid symbol</li>
+     *   <li>The currency field symbol is followed by a number of any length that doesn't stats with a "0"</li>
+     *   <li>The currency field number is then followed by a "." which is followed by 2 digits</li>
+     * </ul>
+     *
+     * @param currency the currency string to validate
+     * @return {@code true} if the currency is valid, {@code false} otherwise
+     **/
     public static boolean validateCurrencyField(String currency)
     {
         if ((currency == "" || currency == null)){
@@ -29,7 +41,19 @@ public class InputValidator
 
 
 
-//YYYY/MM/DD format, must be a valid date, must not be empty
+/**
+     * Validates a creation date input.
+     *
+     * This validation ensures that:
+     * <ul>
+     *   <li>The creation date follows a YYYY/MM/DD format</li>
+     *   <li>The creation date is a valid date</li>
+     *   <li>The creation date field must be filled</li>
+     * </ul>
+     *
+     * @param creationDate the creationDate string to validate
+     * @return {@code true} if the creation date is valid, {@code false} otherwise
+     **/
     public static boolean validateCreationDateField(String creationDate)
     {
         // Check if empty or null
@@ -72,7 +96,17 @@ public class InputValidator
 
 
 
-    //Only 4 valid mediums
+    /**
+     * Validates a medium input.
+     *
+     * This validation ensures that:
+     * <ul>
+     *   <li>The medium is either "Oil Painting", "Water Color", "Digital Photography", "Sculpture"</li>
+     * </ul>
+     *
+     * @param medium the creationDate string to validate
+     * @return {@code true} if the medium is valid, {@code false} otherwise
+     **/
     public static boolean validateMediumField(String medium)
     {
         //4 valid mediums return true
