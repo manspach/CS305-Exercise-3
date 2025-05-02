@@ -78,26 +78,18 @@ public class InputValidatorTest
         //Passing
         assertTrue(InputValidator.validateTitle("Red Picture")); //Valid Title test will return true
         assertTrue(InputValidator.validateTitle("h")); //Single letter titles are allowed should return true
+        //Within the title character limit (99 characters)
+        assertTrue(InputValidator.validateTitle("ipsumdolor sit amet, consectetur adipiscing elit, sed do equi officia deserunt mollit anim id est s"));
         
 
         //Failing
         assertFalse(InputValidator.validateTitle("")); //Test empty title should return true
         assertFalse(InputValidator.validateTitle(null)); //Should fail test empty title again should return true
         assertFalse(InputValidator.validateTitle(" ")); //Single letter titles are allowed should return true
+        //Outside the title character limt (100 characters)
+        assertFalse(InputValidator.validateTitle("ipsum dolor sit amet, consectetur adipiscing elit, sed do equi officia deserunt mollit anim id est s"));
     }
-    @Test
-    public void testTitleLength()
-    {
-        //Passing
-        assertTrue(InputValidator.validateTitleLength(10)); //Within specified length. Return true
-        assertTrue(InputValidator.validateTitleLength(28)); //Within specified length. Return true 
-        assertTrue(InputValidator.validateTitleLength(5)); //Within specified length. Return true
-
-        //Failing
-        assertFalse(InputValidator.validateTitleLength(0)); //Outside specified length. Return False
-        assertFalse(InputValidator.validateTitleLength(1001)); //Outside specified length. Return False
-        assertFalse(InputValidator.validateTitleLength(-8)); //Outside specified length. Return False
-    }
+    
     @Test
     public void testDescription()
     {
@@ -105,25 +97,17 @@ public class InputValidatorTest
         assertTrue(InputValidator.validateDescription("The painting is of the authors mother")); //Valid description fits all criteria should return true
         assertTrue(InputValidator.validateDescription("The ")); //Valid description fits all criteria should return true
         assertTrue(InputValidator.validateDescription("Boat")); //Valid description fits all criteria should return true
+        //Within the character limit (999 characters)
+        assertTrue(InputValidator.validateDescription("Loremipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborumLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborumLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do equi officia deserunt mollit anim id est laborum"));
 
         //Failing
         assertFalse(InputValidator.validateDescription("")); //Invalid becasue there is no description should return false 
         assertFalse(InputValidator.validateDescription(null));//nvalid becasue there is no description should return false 
         assertFalse(InputValidator.validateDescription(" ")); //Invalid becasue there is no description should return false 
+        //Outside character limit (1000 characters)
+        assertFalse(InputValidator.validateDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborumLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborumLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do equi officia deserunt mollit anim id est laborum" )); 
     }
-    @Test
-    public void testDescriptionLength()
-    {
-        //Passing
-        assertTrue(InputValidator.validateDescriptionLength(100)); //Vaild length should return true
-        assertTrue(InputValidator.validateDescriptionLength(60)); //Valid length should return true 
-        assertTrue(InputValidator.validateDescriptionLength(1)); //Valid length should return true 
-        
-        //Failing
-        assertFalse(InputValidator.validateDescriptionLength(0)); //Invalid description length is not long enough should return false
-        assertFalse(InputValidator.validateDescriptionLength(1001)); //Invalid length outside of the specified length. Return false
-        assertFalse(InputValidator.validateDescriptionLength(-10)); //Invalid length outside of the specified length. Return false
-    }
+
     @Test
     public void testImage()
     {

@@ -50,25 +50,18 @@ public class InputValidator
     //Checks if the tile is empty 
     public static boolean validateTitle(String title)
     {
-          return title != null && !title.trim().isEmpty();
-    }
-
-    //Checks if the title is longer than 0 characters less than 100 
-    public static boolean validateTitleLength(int titleLength)
-    {
-        return titleLength > 0 && titleLength < 100;
+          return title != null 
+          && !title.trim().isEmpty()
+          && title.trim().length() < 100;
     }
 
     //Checks if description is empty 
     public static boolean validateDescription(String description)
     {
-        return description != null && !description.trim().isEmpty();
-    }
-    
-    //Checks if the description is longer then 0 characters and less than 1000
-    public static boolean validateDescriptionLength(int descriptionLength)
-    {
-        return descriptionLength > 0 && descriptionLength < 1000;
+        //return description != null && !description.trim().isEmpty();
+        return description != null &&
+           !description.trim().isEmpty() &&
+           description.trim().length() < 1000;
     }
 
     //Checks if the image has the proper extension (".JPG" or ".PNG") and if the file size is less the 4 MB
