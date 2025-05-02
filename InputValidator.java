@@ -6,5 +6,9 @@
 
 public class InputValidator {
     
+    public static boolean validateCurrencyField(String currency){
+
+        return false;
+    }
 
 }
