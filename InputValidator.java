@@ -17,7 +17,7 @@ import java.util.HashSet;
  * @author Collin Russell
  * @author Junior Matuza
  * @author with assistance from Benjamin
- * @authour with assistance from Dr. Vargas-Perez
+ * @author with assistance from Dr. Vargas-Perez
  * 
  * @version 02 May 2025
  */
@@ -144,18 +144,21 @@ public class InputValidator
      * @param password the password string to validate
      * @return {@code true} if the password is valid, {@code false} otherwise
      **/
-    public static boolean validatePasswordField(String password) {
+    public static boolean validatePasswordField(String password)
+    {
         return password != null
             && password.length() >= 8
             && password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d!*.\\-]{8,}$");
-    }    
+    }
     
-    public static boolean validatePhoneNumberField(String phonenumber) {
+    public static boolean validatePhoneNumberField(String phonenumber)
+    {
         if (phonenumber == null || phonenumber.isEmpty()) return true; // empty allowed
         return phonenumber.replaceAll("[\\s\\-]", "").matches("^\\d{10}$");
     }
     
-    public static boolean validateDateOfBirthField(String dateofbirth) {
+    public static boolean validateDateOfBirthField(String dateofbirth)
+    {
         if (dateofbirth == null || dateofbirth.trim().isEmpty()) {
             return false;
         }
@@ -174,46 +177,118 @@ public class InputValidator
         }
     }
 
-    public static boolean validatePostalCodeField(String postalcode) {
+    public static boolean validatePostalCodeField(String postalcode)
+    {
         if (postalcode == null || postalcode.isEmpty()) return true; // assume non-US is okay
         return postalcode.matches("^\\d{5}$");
-    }    
+    }
 
- 
-     //Checks if the tile is empty 
-     public static boolean validateTitle(String title)
-     {
-           return title != null 
-           && !title.trim().isEmpty()
-           && title.trim().length() < 100;
-     }
- 
-     //Checks if description is empty 
-     public static boolean validateDescription(String description)
-     {
+     //Checks if the tile is empty
+    public static boolean validateTitle(String title)
+    {
+        return title != null
+            && !title.trim().isEmpty()
+            && title.trim().length() < 100;
+    }
+
+     //Checks if description is empty
+    public static boolean validateDescription(String description)
+    {
          //return description != null && !description.trim().isEmpty();
-         return description != null &&
+        return description != null &&
             !description.trim().isEmpty() &&
             description.trim().length() < 1000;
-     }
- 
+    }
+
      //Checks if the image has the proper extension (".JPG" or ".PNG") and if the file size is less the 4 MB
-     public static boolean validateImage(String fileName, double fileSize)
-     {
-         if (fileName == null || fileSize > 4) return false;
-         
-         return fileName.endsWith(".JPG") || fileName.endsWith(".PNG");
-     }
- 
+    public static boolean validateImage(String fileName, double fileSize)
+    {
+        if (fileName == null || fileSize > 4) return false;
+    
+        return fileName.endsWith(".JPG") || fileName.endsWith(".PNG");
+    }
+
      //Checks if there is a valid dimention of the art (width, height) and there is a valid unit of measure of the art (meter, inch, feet, etc)
-     public static boolean isValidDimensions(String width, String height, String unit)
-     {
-         if(width.isEmpty() || height.isEmpty() || unit.isEmpty()) return false; 
-         return true; 
-     }
+    public static boolean isValidDimensions(String width, String height, String unit)
+    {
+        if(width.isEmpty() || height.isEmpty() || unit.isEmpty()) return false; 
+        return true; 
+    }
  
     public static boolean validateCurrencyField(String currency)
     {
+        if ((currency == "" || currency == null)){
+            return true;
+        }
+
+    //pattern for currency validation
+    // ^               - start of string
+    // [$€₱₿]          - currency symbols (Dollar, Euro, Peso, Bitcoin)
+    // [1-9][0-9]*     - first digit can't be 0, followed by any number of digits
+    // \.              - decimal point
+    // [0-9]{2}        - exactly 2 digits for cents
+    // $               - end of string
+    String pattern = "^[$€₱₿][1-9][0-9]*\\.[0-9]{2}$";
+
+    return currency.matches(pattern);
+    }
+
+//YYYY/MM/DD format, must be a valid date, must not be empty
+    public static boolean validateCreationDateField(String creationDate)
+    {
+        // Check if empty or null
+    if (creationDate == null || creationDate == "") {
         return false;
     }
-} 
+
+    // Check format: YYYY/MM/DD where each part has exact digits
+    if (!creationDate.matches("^\\d{4}/\\d{2}/\\d{2}$")) {
+        return false;
+    }
+    
+    
+        // Parse the date parts
+        int year = Integer.parseInt(creationDate.substring(0, 4));
+        int month = Integer.parseInt(creationDate.substring(5, 7));
+        int day = Integer.parseInt(creationDate.substring(8, 10));
+
+        // Check year range (1900-2025)
+        if (year < 1900 || year > 2025) {
+            return false;
+        }
+
+        // Check month range (1-12)
+        if (month < 1 || month > 12) {
+            return false;
+        }
+
+        // Check day range (1-31)
+        if (day < 1 || day > 31) {
+            return false;
+        }
+
+        return true;
+    }
+
+    //Only 4 valid mediums
+    public static boolean validateMediumField(String medium)
+    {
+        //4 valid mediums return true
+        if (medium == "Oil Painting"){
+            return true;
+        }
+        else if (medium == "Water Color"){
+            return true;
+        }
+        else if (medium == "Digital Photography"){
+            return true;
+        }
+        else if (medium == "Sculpture"){
+            return true;
+        }
+        //anything else is false
+        else{
+            return false;
+        }
+    }
+}
