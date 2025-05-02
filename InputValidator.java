@@ -3,17 +3,25 @@
  * appropriate JavaDoc comments, method and code comments, and the appropriate
  * methods to validate inputs from the user.
  */
-
- import java.util.HashSet;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.HashSet;
 
 /**
  * This is a class for validating various input fields.
  * 
  * @author Maddie Anspach
+ * @author Harry Spark
+ * @author Collin Russell
+ * @author Junior Matuza
  * @author with assistance from Benjamin
+ * @authour with assistance from Dr. Vargas-Perez
  * 
  * @version 02 May 2025
  */
+
 public class InputValidator
 {
     /**
@@ -121,6 +129,56 @@ public class InputValidator
             && username.matches("[\\p{L}\\p{M}\\p{N}._]+")
             && (usernameData == null || !usernameData.contains(username));
     }
+
+    /**
+     * Validates a password input.
+     * <p>
+     * This validation ensures that:
+     * <ul>
+     * <li> The password is not {@code null} or empty.</li>
+     * <li> The password has a minimum length of 8 characters.</li>
+     * <li> The password must include at least 1 uppercase letter, 1 lowercase letter, and 1 digit.</li>
+     * <li> Can use special characters !, -, *, and .</li>
+     * <iul>
+     * 
+     * @param password the password string to validate
+     * @return {@code true} if the password is valid, {@code false} otherwise
+     **/
+    public static boolean validatePasswordField(String password) {
+        return password != null
+            && password.length() >= 8
+            && password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d!*.\\-]{8,}$");
+    }    
+    
+    public static boolean validatePhoneNumberField(String phonenumber) {
+        if (phonenumber == null || phonenumber.isEmpty()) return true; // empty allowed
+        return phonenumber.replaceAll("[\\s\\-]", "").matches("^\\d{10}$");
+    }
+    
+    public static boolean validateDateOfBirthField(String dateofbirth) {
+        if (dateofbirth == null || dateofbirth.trim().isEmpty()) {
+            return false;
+        }
+    
+        try {
+            LocalDate dob = LocalDate.parse(dateofbirth, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate today = LocalDate.now();
+    
+            if (dob.isAfter(today)) return false;
+    
+            int age = Period.between(dob, today).getYears();
+            return age >= 18;
+    
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    public static boolean validatePostalCodeField(String postalcode) {
+        if (postalcode == null || postalcode.isEmpty()) return true; // assume non-US is okay
+        return postalcode.matches("^\\d{5}$");
+    }    
+
  
      //Checks if the tile is empty 
      public static boolean validateTitle(String title)
