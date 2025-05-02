@@ -68,11 +68,73 @@ public class InputValidatorTest
 
         // assertFalse(InputValidator.validateNameField("Williams")); // name with capital letter should return true
     }
-    
 
-    public void testTitleIsNotEmpty()
+    @Test
+    public void testPasswordField()
     {
-        assertTrue(InputValidator.setTitle("Red Picture")); //Should 
+        //passing tests
+        //valid passwords
+        assertTrue(InputValidator.validatePasswordField("Abcdef1!"));// non-empty string should return true (test should pass)
+        assertTrue(InputValidator.validatePasswordField("A1bc-def"));// non-empty string should return true (test should pass)
+        assertTrue(InputValidator.validatePasswordField("ABcd12*-"));// non-empty string should return true (test should pass)
+
+        //invalid passwords
+        assertFalse(InputValidator.validatePasswordField(""));// empty string should return false (test should pass)
+        assertFalse(InputValidator.validatePasswordField("Ab1!c"));// less than 8 characters should return false (test should pass)
+        assertFalse(InputValidator.validatePasswordField("abcdefg1!"));// no uppercase letter should return false (test should pass)
+        assertFalse(InputValidator.validatePasswordField("ABCDEFG1!"));// no lowercase letter string should return false (test should pass)
+        assertFalse(InputValidator.validatePasswordField("Abcdefg!"));// no digit should return false (test should pass)
+        assertFalse(InputValidator.validatePasswordField("Abcdef1@"));// contains an invalid special character should return false (test should pass)
+        assertFalse(InputValidator.validatePasswordField("null"));// null string should return false (test should pass)
     }
+
+    @Test
+    public void testPhoneNumberField()
+    {
+        //passing tests
+        //valid passwords
+        assertTrue(InputValidator.validatePhoneNumberField(""));// empty input should return true (test should pass)
+        assertTrue(InputValidator.validatePhoneNumberField("1234567890"));// exactly 10 digits should return true (test should pass)
+        assertTrue(InputValidator.validatePhoneNumberField("123-456-7890"));// exactly 10 digits with dashes should return true (test should pass)
+        assertTrue(InputValidator.validatePhoneNumberField("123 456 7890"));// exactly 10 digits with spaces should return true (test should pass)
+
+        //invalid passwords
+        assertFalse(InputValidator.validatePhoneNumberField("123456789"));// less than 10 digits should return false (test should pass)
+        assertFalse(InputValidator.validatePhoneNumberField("12345678901"));// more than 10 digits should return false (test should pass)
+        assertFalse(InputValidator.validatePhoneNumberField("12345abc90"));// contains letters should return false (test should pass)
+        assertFalse(InputValidator.validatePhoneNumberField("123-456789@"));// contains special characters should return true (test should pass)
+    }
+
+    @Test
+    public void testDateOfBirthField()
+    {
+        //passing tests
+        //valid passwords
+        assertTrue(InputValidator.validateDateOfBirthField("2007-05-01"));// valid format and user is exactly 18 years old should return true (test should pass)
+        assertTrue(InputValidator.validateDateOfBirthField("2001-05-01"));// valid format and user is > 18 years old should return true (test should pass)
+
+        //invalid passwords
+        assertFalse(InputValidator.validateDateOfBirthField(""));// empty input should return false (test should pass)
+        assertFalse(InputValidator.validateDateOfBirthField("2009-05-01"));// valid format but user is < 18 years old should return false (test should pass)
+        assertFalse(InputValidator.validateDateOfBirthField("05-01-2001"));// invalid format should return false (test should pass)
+        assertFalse(InputValidator.validateDateOfBirthField("2025-02-30"));// nonexistent date should return false (test should pass)
+        assertFalse(InputValidator.validateDateOfBirthField("not-a-date"));// non-date string should return false (test should pass)
+    }
+
+    @Test
+    public void testPostalCodeField()
+    {
+        //passing tests
+        //valid passwords
+        assertTrue(InputValidator.validatePostalCodeField(""));// empty input should return true (test should pass)
+        assertTrue(InputValidator.validatePostalCodeField("12345"));// exactly 5 digits should return true (test should pass)
+
+        //invalid passwords
+        assertFalse(InputValidator.validatePostalCodeField("1234"));// less than 5 digits should return false (test should pass)
+        assertFalse(InputValidator.validatePostalCodeField("123456"));// more than 5 digits should return false (test should pass)
+        assertFalse(InputValidator.validatePostalCodeField("12a45"));// contains letters should return false (test should pass)
+        assertFalse(InputValidator.validatePostalCodeField("12-45"));// contains special characters should return false (test should pass)
+    }
+
     // CREATE MORE TESTS HERE
 }
