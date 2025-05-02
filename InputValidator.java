@@ -4,6 +4,8 @@
  * methods to validate inputs from the user.
  */
 
+import java.util.HashSet;
+
 public class InputValidator
 {
     public static boolean validateNameField(String name)
@@ -48,13 +50,14 @@ public class InputValidator
             && email.matches("^[^\\s@]+@[^\\s@]+(\\.[^\\s@]+)+$");
     }
 
-    public static boolean validateUsernameField(String username)
+    public static boolean validateUsernameField(String username, HashSet usernameData)
     {
         
         return username != null
             && !username.isEmpty()
             && username.length() >= 1
             && username.length() <= 20
-            && username.matches("[\\p{L}\\p{M}\\p{N}._]+");
+            && username.matches("[\\p{L}\\p{M}\\p{N}._]+")
+            && (usernameData == null || !usernameData.contains(username));
     }
 }
