@@ -6,7 +6,7 @@
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import java.util.InputMismatchException;
+import java.util.HashSet;
 
 /**
  * <p>
@@ -298,11 +298,11 @@ public class InputValidatorTest
     public void testUsernameFieldIsEmpty()
     {
         // valid username
-        assertTrue(InputValidator.validateUsernameField("maddie")); // non-empty string should return true
+        assertTrue(InputValidator.validateUsernameField("maddie", null)); // non-empty string should return true
 
         // invalid username
-        assertFalse(InputValidator.validateUsernameField("")); // empty string should return false
-        assertFalse(InputValidator.validateUsernameField(null)); // null string should return false
+        assertFalse(InputValidator.validateUsernameField("", null)); // empty string should return false
+        assertFalse(InputValidator.validateUsernameField(null, null)); // null string should return false
     }
 
     /**
@@ -318,12 +318,12 @@ public class InputValidatorTest
     public void testUsernameFieldLength()
     {
         // valid usernames
-        assertTrue(InputValidator.validateUsernameField("m")); // username with one character should be accepted
-        assertTrue(InputValidator.validateUsernameField("madisonmaeanspach444")); // username with 20 characters should be accepted
+        assertTrue(InputValidator.validateUsernameField("m", null)); // username with one character should be accepted
+        assertTrue(InputValidator.validateUsernameField("madisonmaeanspach444", null)); // username with 20 characters should be accepted
 
         // invalid usernames
-        assertFalse(InputValidator.validateUsernameField("")); // empty string is too short
-        assertFalse(InputValidator.validateUsernameField("madisonmaeanspach1144")); // username with 21 characters should be rejected
+        assertFalse(InputValidator.validateUsernameField("", null)); // empty string is too short
+        assertFalse(InputValidator.validateUsernameField("madisonmaeanspach1144", null)); // username with 21 characters should be rejected
     }
 
     /**
@@ -333,19 +333,38 @@ public class InputValidatorTest
     public void testUsernameFieldCharacters()
     {
         // valid usernames
-        assertTrue(InputValidator.validateUsernameField("SergioPérez")); // username with diacritics
-        assertTrue(InputValidator.validateUsernameField("Αλεξάνδρα")); // username in other language
-        assertTrue(InputValidator.validateUsernameField("madisonanspach04")); // username with numbers
-        assertTrue(InputValidator.validateUsernameField("madison_anspach")); // username with underscores
-        assertTrue(InputValidator.validateUsernameField("madison.anspach")); // username with period
-        assertTrue(InputValidator.validateUsernameField("2004")); // username of only numbers
-        assertTrue(InputValidator.validateUsernameField("___")); // username of only underscores
-        assertTrue(InputValidator.validateUsernameField("..")); // username of only periods
+        assertTrue(InputValidator.validateUsernameField("SergioPérez", null)); // username with diacritics
+        assertTrue(InputValidator.validateUsernameField("Αλεξάνδρα", null)); // username in other language
+        assertTrue(InputValidator.validateUsernameField("madisonanspach04", null)); // username with numbers
+        assertTrue(InputValidator.validateUsernameField("madison_anspach", null)); // username with underscores
+        assertTrue(InputValidator.validateUsernameField("madison.anspach", null)); // username with period
+        assertTrue(InputValidator.validateUsernameField("2004", null)); // username of only numbers
+        assertTrue(InputValidator.validateUsernameField("___", null)); // username of only underscores
+        assertTrue(InputValidator.validateUsernameField("..", null)); // username of only periods
 
         //invalid usernames
-        assertFalse(InputValidator.validateUsernameField("madison anspach")); // username with space
-        assertFalse(InputValidator.validateUsernameField("madison!")); // username with punctuation (other than period)
-        assertFalse(InputValidator.validateUsernameField("madison-anspach")); // username with hyphen
-        assertFalse(InputValidator.validateUsernameField("madisonanspach$")); // username with special character
+        assertFalse(InputValidator.validateUsernameField("madison anspach", null)); // username with space
+        assertFalse(InputValidator.validateUsernameField("madison!", null)); // username with punctuation (other than period)
+        assertFalse(InputValidator.validateUsernameField("madison-anspach", null)); // username with hyphen
+        assertFalse(InputValidator.validateUsernameField("madisonanspach$", null)); // username with special character
+    }
+
+    /**
+     * 
+     **/
+    @Test
+    public void testUsernameFieldUnique()
+    {
+        HashSet<String> usernameData = new HashSet<>();
+        usernameData.add("maddieanspach");
+        usernameData.add("lando");
+
+        // valid unique usernames
+        assertTrue(InputValidator.validateUsernameField("lewishamilton", usernameData));
+        assertTrue(InputValidator.validateUsernameField("Lando", usernameData));
+
+        // invalid not unique usernames
+        assertFalse(InputValidator.validateUsernameField("lando", usernameData));
+        assertFalse(InputValidator.validateUsernameField("maddieanspach", usernameData));
     }
 }
