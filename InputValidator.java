@@ -22,6 +22,20 @@ public class InputValidator
             && name.matches("^\\p{L}+( \\p{L}+)?$");
     }
 
+    /**
+     * Validates a password input.
+     * <p>
+     * This validation ensures that:
+     * <ul>
+     * <li> The password is not {@code null} or empty.</li>
+     * <li> The password has a minimum length of 8 characters.</li>
+     * <li> The password must include at least 1 uppercase letter, 1 lowercase letter, and 1 digit.</li>
+     * <li> Can use special characters !, -, *, and .</li>
+     * <iul>
+     * 
+     * @param password the password string to validate
+     * @return {@code true} if the password is valid, {@code false} otherwise
+     **/
     public static boolean validatePasswordField(String password) {
         return password != null
             && password.length() >= 8
