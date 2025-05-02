@@ -75,41 +75,64 @@ public class InputValidatorTest
     @Test
     public void testTitleIsNotEmpty()
     {
+        //Passing
         assertTrue(InputValidator.validateTitle("Red Picture")); //Valid Title test will return true
         assertTrue(InputValidator.validateTitle("h")); //Single letter titles are allowed should return true
+        
 
+        //Failing
         assertFalse(InputValidator.validateTitle("")); //Test empty title should return true
         assertFalse(InputValidator.validateTitle(null)); //Should fail test empty title again should return true
-
+        assertFalse(InputValidator.validateTitle(" ")); //Single letter titles are allowed should return true
     }
     @Test
     public void testTitleLength()
     {
-        assertTrue(InputValidator.validateTitleLength(10)); //Pass
-        assertFalse(InputValidator.validateTitleLength(0)); // Fail
-        assertFalse(InputValidator.validateTitleLength(1001)); // Fail
+        //Passing
+        assertTrue(InputValidator.validateTitleLength(10)); //Within specified length. Return true
+        assertTrue(InputValidator.validateTitleLength(28)); //Within specified length. Return true 
+        assertTrue(InputValidator.validateTitleLength(5)); //Within specified length. Return true
+
+        //Failing
+        assertFalse(InputValidator.validateTitleLength(0)); //Outside specified length. Return False
+        assertFalse(InputValidator.validateTitleLength(1001)); //Outside specified length. Return False
+        assertFalse(InputValidator.validateTitleLength(-8)); //Outside specified length. Return False
     }
     @Test
     public void testDescription()
     {
+        //Passing
         assertTrue(InputValidator.validateDescription("The painting is of the authors mother")); //Valid description fits all criteria should return true
+        assertTrue(InputValidator.validateDescription("The ")); //Valid description fits all criteria should return true
+        assertTrue(InputValidator.validateDescription("Boat")); //Valid description fits all criteria should return true
+
+        //Failing
         assertFalse(InputValidator.validateDescription("")); //Invalid becasue there is no description should return false 
         assertFalse(InputValidator.validateDescription(null));//nvalid becasue there is no description should return false 
+        assertFalse(InputValidator.validateDescription(" ")); //Invalid becasue there is no description should return false 
     }
     @Test
     public void testDescriptionLength()
     {
+        //Passing
         assertTrue(InputValidator.validateDescriptionLength(100)); //Vaild length should return true
+        assertTrue(InputValidator.validateDescriptionLength(60)); //Valid length should return true 
+        assertTrue(InputValidator.validateDescriptionLength(1)); //Valid length should return true 
+        
+        //Failing
         assertFalse(InputValidator.validateDescriptionLength(0)); //Invalid description length is not long enough should return false
-        assertFalse(InputValidator.validateDescriptionLength(1001)); // Fail
+        assertFalse(InputValidator.validateDescriptionLength(1001)); //Invalid length outside of the specified length. Return false
+        assertFalse(InputValidator.validateDescriptionLength(-10)); //Invalid length outside of the specified length. Return false
     }
     @Test
     public void testImage()
     {
-        assertTrue(InputValidator.validateImage("ArtWork.JPG", 3)); //Matches what we want should return true
-        assertTrue(InputValidator.validateImage("painting.PNG", 3)); //Matches what we want should return true
+        //Passing 
+        assertTrue(InputValidator.validateImage("ArtWork.JPG", 3)); //Matches criteria should return true
+        assertTrue(InputValidator.validateImage("painting.PNG", 3)); //Matches criteria should return true
         assertTrue(InputValidator.validateImage("painting.JPG", 2.67)); //Within limits should return true 
 
+        //Failing
         assertFalse(InputValidator.validateImage("photo.png", 3)); //The extension is lower case so it should pass as false
         assertFalse(InputValidator.validateImage("painting.PNG", 5)); //The MB is over the limt should return false
         assertFalse(InputValidator.validateImage("painting.JPG", 10)); //Extenstion is right, but the size is too big
@@ -120,7 +143,10 @@ public class InputValidatorTest
     @Test
     public void testDimensions ()
     {
+        //Passing
         assertTrue(InputValidator.isValidDimensions("24", "36", "inches")); //Has all requirements of width adn height
+       
+       //Failing
         assertFalse(InputValidator.isValidDimensions("24", "", "inches")); //Missing height int should return false
         assertFalse(InputValidator.isValidDimensions("", "36", "inches")); //Missing width should return false
         assertFalse(InputValidator.isValidDimensions("", "", "")); // Missing dimensions and units should return false
