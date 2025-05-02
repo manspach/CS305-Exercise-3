@@ -6,6 +6,8 @@
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.util.InputMismatchException;
+
 /**
  * <p>
  * This class contains test cases for validating various inputs using {@code InputValidator}.
@@ -322,5 +324,28 @@ public class InputValidatorTest
         // invalid usernames
         assertFalse(InputValidator.validateUsernameField("")); // empty string is too short
         assertFalse(InputValidator.validateUsernameField("madisonmaeanspach1144")); // username with 21 characters should be rejected
+    }
+
+    /**
+     * 
+     **/
+    @Test
+    public void testUsernameFieldCharacters()
+    {
+        // valid usernames
+        assertTrue(InputValidator.validateUsernameField("SergioPérez")); // username with diacritics
+        assertTrue(InputValidator.validateUsernameField("Αλεξάνδρα")); // username in other language
+        assertTrue(InputValidator.validateUsernameField("madisonanspach04")); // username with numbers
+        assertTrue(InputValidator.validateUsernameField("madison_anspach")); // username with underscores
+        assertTrue(InputValidator.validateUsernameField("madison.anspach")); // username with period
+        assertTrue(InputValidator.validateUsernameField("2004")); // username of only numbers
+        assertTrue(InputValidator.validateUsernameField("___")); // username of only underscores
+        assertTrue(InputValidator.validateUsernameField("..")); // username of only periods
+
+        //invalid usernames
+        assertFalse(InputValidator.validateUsernameField("madison anspach")); // username with space
+        assertFalse(InputValidator.validateUsernameField("madison!")); // username with punctuation (other than period)
+        assertFalse(InputValidator.validateUsernameField("madison-anspach")); // username with hyphen
+        assertFalse(InputValidator.validateUsernameField("madisonanspach$")); // username with special character
     }
 }
