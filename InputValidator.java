@@ -47,35 +47,39 @@ public class InputValidator
             && email.matches("^[^\\s@]+@[^\\s@]+(\\.[^\\s@]+)+$");
     }
 
-    
+    //Checks if the tile is empty 
     public static boolean validateTitle(String title)
     {
           return title != null && !title.trim().isEmpty();
     }
 
+    //Checks if the title is longer than 0 characters less than 100 
     public static boolean validateTitleLength(int titleLength)
     {
         return titleLength > 0 && titleLength < 100;
     }
 
+    //Checks if description is empty 
     public static boolean validateDescription(String description)
     {
         return description != null && !description.trim().isEmpty();
     }
-
+    
+    //Checks if the description is longer then 0 characters and less than 1000
     public static boolean validateDescriptionLength(int descriptionLength)
     {
         return descriptionLength > 0 && descriptionLength < 1000;
     }
 
+    //Checks if the image has the proper extension (".JPG" or ".PNG") and if the file size is less the 4 MB
     public static boolean validateImage(String fileName, double fileSize)
     {
         if (fileName == null || fileSize > 4) return false;
-
-    
+        
         return fileName.endsWith(".JPG") || fileName.endsWith(".PNG");
     }
 
+    //Checks if there is a valid dimention of the art (width, height) and there is a valid unit of measure of the art (meter, inch, feet, etc)
     public static boolean isValidDimensions(String width, String height, String unit)
     {
         if(width.isEmpty() || height.isEmpty() || unit.isEmpty()) return false; 
