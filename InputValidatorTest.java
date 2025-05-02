@@ -21,7 +21,7 @@ import java.util.HashSet;
  * @author Maddie Anspach
  * @author with assistance from Benjamin
  * 
- * @version 01 May 2025
+ * @version 02 May 2025
  * {@link InputValidator}
  */
 public class InputValidatorTest
@@ -83,7 +83,7 @@ public class InputValidatorTest
      *   <li>Non-Latin characters<\li>
      *   <li>Combining marks<\li>
      * </ul>
-     * 
+     *
      * Also tests rejection of:
      * <ul>
      *   <li>Multiple spaces<\li>
@@ -186,8 +186,8 @@ public class InputValidatorTest
         assertTrue(InputValidator.validateLastNameField("Pérez Reverte")); // two last names with diacritcs, no hyphens
         assertTrue(InputValidator.validateLastNameField("García-López")); // two last names with diacritics and hyphens
         assertTrue(InputValidator.validateLastNameField("Sainz Vázquez de Castro")); // more than two last names
-        assertTrue(InputValidator.validateNameField("hellō")); // name with combining marks (thanks Benjamin for this test)
-        assertTrue(InputValidator.validateNameField("Αλεξάνδρα")); // Alexandra in Greek, name in other languages should return true
+        assertTrue(InputValidator.validateLastNameField("hellō")); // name with combining marks (thanks Benjamin for this test)
+        assertTrue(InputValidator.validateLastNameField("Αλεξάνδρα")); // Alexandra in Greek, name in other languages should return true
      
         //invalid names
         assertFalse(InputValidator.validateLastNameField("Anspach--Dimmick")); // last name with consecutive hyphens
@@ -201,9 +201,9 @@ public class InputValidatorTest
         assertFalse(InputValidator.validateLastNameField("  ")); // last name with only spaces
         assertFalse(InputValidator.validateLastNameField(" Anspach")); // last name with leading space
         assertFalse(InputValidator.validateLastNameField("Anspach ")); // last name with trailing space
-        assertFalse(InputValidator.validateNameField("Alpine!")); // name with punctuation should return false
-        assertFalse(InputValidator.validateNameField("Lewis_Hamilton")); // name with special characters should return false
-        assertFalse(InputValidator.validateNameField("Max33")); // name with numbers should return false
+        assertFalse(InputValidator.validateLastNameField("Alpine!")); // name with punctuation should return false
+        assertFalse(InputValidator.validateLastNameField("Lewis_Hamilton")); // name with special characters should return false
+        assertFalse(InputValidator.validateLastNameField("Max33")); // name with numbers should return false
     }
     
     /**
@@ -327,7 +327,12 @@ public class InputValidatorTest
     }
 
     /**
-     * 
+     * Tests the character validation logic in the {@code validateUsernameField} method of the {@link InputValidator} class.
+     * This test verifies that:
+     * <ul>
+     *   <li>Usernames with valid characters—such as letters (including Unicode), numbers, underscores, and periods—return {@code true}.</li>
+     *   <li>Usernames containing invalid characters—such as spaces, punctuation other than periods, hyphens, or special symbols—return {@code false}.</li>
+     * </ul>
      **/
     @Test
     public void testUsernameFieldCharacters()
@@ -350,7 +355,12 @@ public class InputValidatorTest
     }
 
     /**
-     * 
+     * Tests the uniqueness validation logic in the {@code validateUsernameField} method of the {@link InputValidator} class.
+     * This test verifies that:
+     * <ul>
+     *   <li>Usernames that are not already present in the provided dataset return {@code true}.</li>
+     *   <li>Usernames that already exist in the dataset (case-sensitive comparison) return {@code false}.</li>
+     * </ul>
      **/
     @Test
     public void testUsernameFieldUnique()
