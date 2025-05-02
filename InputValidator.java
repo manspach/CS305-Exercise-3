@@ -26,6 +26,7 @@ public class InputValidator
         // [ '\\-]? : optionally followed by one space, one apostrophe, or one hypen
         // [\\p{L}]+ : must be followed by at least one letter
         // ([ '\\-]?[\\p{L}]+)* : entire second statement happening zero or more times
+        // $ : stop
         return lastName != null
             && lastName.length() >= 2
             && lastName.matches("^[\\p{L}\\p{M}]+([ '\\-]?[\\p{L}\\p{M}]+)*$");
@@ -41,6 +42,7 @@ public class InputValidator
         // \\. : followed by one period
         // [^\\s@]+ : followed by a string with at least one character, no spaces and no @
         // (\\.[^\\s@]+)+ : entire expression can be repeated (consider emails with a country code)
+        // $ : stop
         return email != null
             && !email.isEmpty()
             && email.matches("^[^\\s@]+@[^\\s@]+(\\.[^\\s@]+)+$");
@@ -49,6 +51,10 @@ public class InputValidator
     public static boolean validateUsernameField(String username)
     {
         
-        return username != null && !username.isEmpty() && username.length() >= 1 && username.length() <= 20;
+        return username != null
+            && !username.isEmpty()
+            && username.length() >= 1
+            && username.length() <= 20
+            && username.matches("[\\p{L}\\p{M}\\p{N}._]+");
     }
 }
