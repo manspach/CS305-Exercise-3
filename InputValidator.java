@@ -208,7 +208,7 @@ public class InputValidator
      * The validation ensures: 
      *     The description does not have a {@code null}, has a length longer than 0, and its length is not longer than 100 characters.
      * 
-     * @param title is the description validated
+     * @param description is the description validated
      * @return {@code true} the description is within limits, {@code false} the description is not within limits.
      */
     //Checks if description is empty 
