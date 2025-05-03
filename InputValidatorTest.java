@@ -29,6 +29,17 @@ import java.util.HashSet;
  */
 public class InputValidatorTest
 {
+    /**
+     * Tests all validation logic in the {@code validatePasswordField} method of the {@link InputValidator} class.
+     * This test verifies that:
+     * <ul>
+     * <li>Passwords with eight or more characters are considered valid and return {@code true}.</li>
+     * <li>Passwords with fewer than eight characters (including empty strings) are considered invalid and return {@code false}.</li>
+     * <li>Passwords containing one or more uppercase letters, lowercase letters, and digits are considered valid and return {@code true}.</li>
+     * <li>Passwords containing no uppercase letters, lowercase letters, and digits are considered invalid and return {@code false}.</li>
+     * <li>Passwords containing or not containing special characters !, -, *, and . (assuming other requirements are met) are considered valid and return {@code ture}</li>
+     * </ul>
+     */
     
     /*
      * For more information about assertion tests check:
@@ -401,6 +412,16 @@ public class InputValidatorTest
         assertFalse(InputValidator.validatePasswordField("null"));// null string should return false (test should pass)
     }
 
+    /**
+     * Tests all validation logic in the {@code validatePhoneNumberField} method of the {@link InputValidator} class.
+     * This test verifies that:
+     * <ul>
+     * <li>Phone numbers with exactly 10 digits are considered valid and retutrn {@code true}.</li>
+     * <li>Phone numbers with any amount of digits other than 10 (excluding empty strings) are considered invalid and return {@code false}.</li>
+     * <li>Phone number input fields with an empty string are considered valid and return {@code true}.</li>
+     * <li>Phone numbers containing or not containing dashes or spaces (assuming other requirements are met) are considered valid and return {@code ture}</li>
+     * <ul>
+     */
     //Must contain 10 digits, may include dashes or spaces. Can be empty.
     @Test
     public void testPhoneNumberField()
@@ -430,6 +451,17 @@ public class InputValidatorTest
         assertFalse(InputValidator.validatePhoneNumberField("!@#$%^&*()"));// contains special characters should return true (test should pass)
     }
 
+    /**
+     * Tests all validation logic in the {@code validateDateOfBirthField} method of the {@link InputValidator} class.
+     * This test verifies that:
+     * <ul>
+     * <li>Date of birth inputs that are empty are considered invalid and return {@code false}.</li>
+     * <li>Date of birth inputs that follow the format yyyy-MM-dd are considered valid and return {@code true}.</li>
+     * <li>Date of birth inputs that follow any other format (other than yyyy-MM-dd) are considered invalid and return {@code false}.</li>
+     * <li>Date of birth inputs that show that the user is >=18 years old are considered valid and return {@code true}.</li>
+     * <li>Date of birth inputs that show that the user is <18 years old are considered invalid and return {@code false}.</li>
+     * <ul>
+     */
     //Must be a valid date in the format yyyy-MM-dd, and user must be 18+ years old. Should not be empty.
     @Test
     public void testDateOfBirthField()
@@ -455,6 +487,17 @@ public class InputValidatorTest
         assertFalse(InputValidator.validateDateOfBirthField("not-a-date"));// non-date string should return false (test should pass)
     }
 
+    /**
+     * Tests all validation logic in the {@code validatePostalCodeField} method of the {@link InputValidator} class.
+     * This test verifies that:
+     * <ul>
+     * <il>Postal codes with exactly 5 digits (for U.S.A.) are considered valid and return {@code true}.</li>
+     * <li>Postal codes with any amount of digits other than 5 (excluding empty strings) are considered invalid and return {@code false}.</li>
+     * <li>Postal code input fields with an empty string (if postal code is not from U.S.A.) are considered valid and return {@code true}.</li>
+     * <li>Postal codes containing only digits are considered valid and return {@code true}.</li>
+     * <li>Postal codes containing letters or special characters are considered invalid and return {@code false}.</li>
+     * <ul>
+     */
     //Must be exactly 5 digits (only for the U.S.A.). Can be empty if the postal code is from another country.
     @Test
     public void testPostalCodeField()
