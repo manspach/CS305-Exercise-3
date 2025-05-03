@@ -28,19 +28,7 @@ import java.util.HashSet;
  * {@link InputValidator}
  */
 public class InputValidatorTest
-{
-    /**
-     * Tests all validation logic in the {@code validatePasswordField} method of the {@link InputValidator} class.
-     * This test verifies that:
-     * <ul>
-     * <li>Passwords with eight or more characters are considered valid and return {@code true}.</li>
-     * <li>Passwords with fewer than eight characters (including empty strings) are considered invalid and return {@code false}.</li>
-     * <li>Passwords containing one or more uppercase letters, lowercase letters, and digits are considered valid and return {@code true}.</li>
-     * <li>Passwords containing no uppercase letters, lowercase letters, and digits are considered invalid and return {@code false}.</li>
-     * <li>Passwords containing or not containing special characters !, -, *, and . (assuming other requirements are met) are considered valid and return {@code ture}</li>
-     * </ul>
-     */
-    
+{   
     /*
      * For more information about assertion tests check:
      * https://www.tutorialspoint.com/junit/junit_using_assertion.htm
@@ -392,6 +380,19 @@ public class InputValidatorTest
         assertFalse(InputValidator.validateUsernameField("maddieanspach", usernameData));
     }
 
+    /**
+     * Tests all validation logic in the {@code validatePasswordField} method of the {@link InputValidator} class.
+     * This test verifies that:
+     * <ul>
+     * <li>Passwords with eight or more characters are considered valid and return {@code true}.</li>
+     * <li>Passwords with fewer than eight characters (including empty strings) are considered invalid and return {@code false}.</li>
+     * <li>Passwords containing one or more uppercase letters, lowercase letters, and digits are considered valid and return {@code true}.</li>
+     * <li>Passwords containing no uppercase letters, lowercase letters, and digits are considered invalid and return {@code false}.</li>
+     * <li>Passwords containing or not containing special characters !, -, *, and . (assuming other requirements are met) are considered valid and return {@code ture}</li>
+     * </ul>
+     */
+    //Must not be empty. At least 8 characters long. At least one uppercase letter, one 
+    //lowercase letter, and one digit. Can use the special characters !, -, *, and ..
     @Test
     public void testPasswordField()
     {
